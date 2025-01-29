@@ -8,6 +8,10 @@ sporadic_speed_growth_rate = 0.02  # 2% improvement per week
 sporadic_comprehension_growth_rate = 0.01  # 1% improvement per week
 weeks = list(range(11))
 
+print("Please input scores in decimal representation of percentage.")
+print("Please input speed between 25 and 250, inclusive.")
+
+
 try:
     score = float(input("Please input the initial comprehension score: "))
     speed = float(input("Please input the reading speed (WPM): "))
@@ -15,18 +19,18 @@ except:
     print("Please enter the right format.")
     exit()
 
-if (0.1 > score > 1.0):
-    print("Please enter the right values.")
+if (score < 0.1 and score > 1.0):
+    print("Please enter the right values1.")
     exit()
-if (31 < speed < 250):
-    print("Please enter the right values.")
+if (speed < 25 and speed > 250):
+    print("Please enter the right values2.")
     exit()
 
 def simulate(score, speed):
    
-    daily_comprehension = [score * (1 + daily_comprehension_growth_rate * i) for i in range(11)] 
+    daily_comprehension = [min(score * (1 + daily_comprehension_growth_rate * i), 1) for i in range(11)] 
     daily_speed = [speed * (1 + daily_speed_growth_rate * i) for i in range(11)]
-    sporadic_comprehension = [score * (1 + sporadic_comprehension_growth_rate * i) for i in range(11)] 
+    sporadic_comprehension = [min(score * (1 + sporadic_comprehension_growth_rate * i), 1) for i in range(11)] 
     sporadic_speed = [speed * (1 + sporadic_speed_growth_rate * i) for i in range(11)]
 
     if score < 0.75:
@@ -43,7 +47,7 @@ def simulate(score, speed):
             else:  
                 note1 = "Frustration VI"
     
-    elif 0.75 <= comprehension <= 0.89:  # Ensure coverage for this range
+    elif 0.75 <= score <= 0.89:  # Ensure coverage for this range
             note1 = np.random.choice([
                     "Instructional I", "Instructional II",
                     "Instructional III", "Instructional IV",
@@ -105,31 +109,28 @@ def simulate(score, speed):
 
     # Speed
     ax1.plot(weeks, daily_speed, label="Daily Readers Speed (WPM)", marker="o")
-    ax1.plot(weeks, sporadic_speed, label="Sporadic Readers Speed (WPM)", marker="o")
+    ax1.plot(weeks, sporadic_speed, label="Sporadic Readers Speed (WPM)", marker="o", linestyle='--')
     ax1.set_title("Weekly Improvement in Reading Speed", fontsize=12, fontweight="bold")
     ax1.set_xlabel("Weeks", fontsize=12, fontweight="bold")
     ax1.set_ylabel("Reading Speed (WPM)", fontsize=12, fontweight="bold")
     ax1.set_xticks(np.arange(min(weeks), max(weeks) + 1, 1.0))
     ax1.legend()
-    # ax1.annotate("With Daily Habit, you can be: " + note + " from " + note1 + "!", xy=(3, 115), xytext=(3, 125),
-    #             fontsize=12, fontweight="bold")
     ax1.grid(True)
 
     # Comprehension
     ax2.plot(weeks, daily_comprehension, label="Daily Readers Comprehension", marker="o")
-    ax2.plot(weeks, sporadic_comprehension, label="Sporadic Readers Comprehension", marker="o")
+    ax2.plot(weeks, sporadic_comprehension, label="Sporadic Readers Comprehension", marker="o", linestyle='--')
     ax2.set_title("Weekly Improvement in Comprehension Score", fontsize=12, fontweight="bold")
     ax2.set_xlabel("Weeks", fontsize=12, fontweight="bold")
     ax2.set_ylabel("Comprehension Score", fontsize=12, fontweight="bold")
     ax2.set_xticks(np.arange(min(weeks), max(weeks) + 1, 1.0))
     ax2.legend()
-    # ax2.annotate("With Daily Habit, you can be: " + note + " from " + note1 + "!", xy=(3, 115), xytext=(3, 125),
-    #             fontsize=12, fontweight="bold")
     ax2.grid(True)
 
-    print("With Daily Habit, \nyou can be: " +  note + " from " + note1 + "!")
-    print(daily_comprehension)
-    fig.suptitle("With Daily Habit, \nyou can be:" +  note + " from " + note1, fontsize=16, fontweight="bold",y=1)
+   
+    fig.suptitle("With Daily Habit, \nyou can be: " +  note + " from " + note1, fontsize=16, fontweight="bold",y=1)
+
+
     # Show the plots
     plt.tight_layout(rect=[0, 0, 1, 0.95])  # Adjust layout to make room for the main title
     plt.show()
