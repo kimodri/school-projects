@@ -124,7 +124,8 @@ class Array():
                         break
                 return sorted_array
             
-
+        def display(self):
+            rint([self._array[i] for i in range(self.size)])
 
         # we should not use the sorted array because the index elements are not the representation
         # of the original array
