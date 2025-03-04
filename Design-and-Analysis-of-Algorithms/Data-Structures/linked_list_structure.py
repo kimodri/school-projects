@@ -39,8 +39,8 @@ class List:
             # insert anywhere
             count = 0
             last_node = self.head
-            while last_node is not None:
-                if count == position - 1:
+            while (last_node != None):
+                if (count == position - 1):
                     new_node.next = last_node.next
                     last_node.next = new_node
                     self.size += 1
@@ -76,26 +76,84 @@ class List:
                 curr = temp
         self.display(prev)
 
+    def remove_duplicates(self):
 
-    def remove_duplicates(self, element):
-        # I need type kapag array
-        arr = array.array()  
-
-
-    def delete(self, element):
-        # if you want to delete you must remove the duplicates first
         if (self.head == None):
             print("No existing list!")
             return None 
-        else:
-            pass
+        current = self.head
+
+        while current:
+            runner = current
+            while runner.next:
+                if runner.next.data == current.data:
+                    runner.next = runner.next.next
+                else:
+                    runner = runner.next
+            current = current.next
     
+    def search(self, element):
+        if self.head is None:
+            print("No list exists!")
+            return 
+        
+        if self.head.data == element:
+            return True
+        
+        last_node = self.head 
+        while last_node:
+            if last_node.data is element:
+                return True
+            last_node = last_node.next
+        return False
+
+    def delete(self, element):
+        if (self.head == None):
+            print("No existing list!")
+            return 
+        
+        if self.search(element):
+            if self.head.data == element:
+                self.head = self.head.next
+                self.size -= 1
+                return
+            
+            last_node = self.head
+            while last_node.next:
+                if last_node.next.data == element:
+                    last_node.next = last_node.next.next
+                    self.size -= 1
+                    if self.search(element) is not False:
+                        self.delete(element)
+                    else:
+                        return
+                last_node = last_node.next  # Move to next node
+        
+
+
+# find what are the elements with duplicates and then call 
 
 if __name__ == '__main__':
     myLl = List()
     myLl.insert(1)
     myLl.insert(2)
+    myLl.insert(2)
+    myLl.insert(1)
     myLl.insert(3)
     myLl.insert(4)
+    myLl.insert(1)
+    myLl.insert(3)
+    myLl.insert(3)
+    myLl.insert(1)
+    myLl.insert(1)
+    myLl.insert(4)
+
     myLl.display()
-    myLl.reverse()
+    myLl.remove_duplicates()
+    # myLl.reverse()
+
+
+    
+    myLl.display()
+
+
