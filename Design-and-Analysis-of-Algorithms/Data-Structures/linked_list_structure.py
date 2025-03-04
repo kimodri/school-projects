@@ -1,3 +1,5 @@
+import array
+
 class Node:
     def __init__(self, data):
         self.data = data 
@@ -46,30 +48,54 @@ class List:
                 last_node = last_node.next
                 count += 1
     
-    def display(self):
-        if (self.head == None):
+    def display(self, head = None):
+        if (head == None):
+            head = self.head
+
+        if (head == None):
             print("Linked List is empty!")
+            return None
+        
         else:
-            current_node = self.head
+            current_node = head
             while (current_node != None):
                 print(current_node.data, end=" -> ")
                 current_node = current_node.next
             print("None")
 
     def reverse(self):
-        pass 
+        if (self.head == None):
+            print("No existing List")
+            return None
+        else:
+            prev, curr = None, self.head
+            while (curr != None):
+                temp = curr.next
+                curr.next = prev 
+                prev = curr 
+                curr = temp
+        self.display(prev)
+
 
     def remove_duplicates(self, element):
-        pass
+        # I need type kapag array
+        arr = array.array()  
+
 
     def delete(self, element):
-        pass
+        # if you want to delete you must remove the duplicates first
+        if (self.head == None):
+            print("No existing list!")
+            return None 
+        else:
+            pass
     
 
 if __name__ == '__main__':
     myLl = List()
+    myLl.insert(1)
     myLl.insert(2)
     myLl.insert(3)
-    myLl.insert(1)
-    myLl.insert(6)
+    myLl.insert(4)
     myLl.display()
+    myLl.reverse()
