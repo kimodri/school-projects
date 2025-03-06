@@ -1,5 +1,5 @@
 from Data_Structures.array_structure import Array
-from Data_Structures.linked_list_structure import *
+from Data_Structures.ll_structure import *
 
 
 import tkinter as tk

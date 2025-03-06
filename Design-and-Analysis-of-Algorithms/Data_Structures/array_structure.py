@@ -134,25 +134,3 @@ class Array:
         Displays the elements of the array.
         """
         print([self._array[i] for i in range(self.size)])
-
-
-
-
-        # we should not use the sorted array because the index elements are not the representation
-        # of the original array
-        # sorted_array = self.sort()
-
-        # if (sorted_array == None):
-        #     return None 
-        # else:
-        #     left = 0
-        #     right = self.size - 1
-        #     while left <= right:
-        #         mid = (left + right) // 2
-        #         if sorted_array[mid] == element:
-        #             return mid  
-        #         elif sorted_array[mid] < element:
-        #             left = mid + 1
-        #         else:
-        #             right = mid - 1
-        #     return -1  # Element not found

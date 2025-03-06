@@ -6,6 +6,8 @@ class Node:
         Initializes a Node object.
         """
         self.data = data
+        self.left = None
+        self.right = None
         self.next = None
 
 class List:
@@ -15,6 +17,7 @@ class List:
         """
         self.head = None
         self.size = 0
+        print("List has been created.")
 
     def insert(self, element, position=None):
         """
@@ -28,6 +31,7 @@ class List:
                 self.head = new_node
                 return None
 
+            # Appending
             last_node = self.head
             while last_node.next is not None:
                 last_node = last_node.next
@@ -145,10 +149,6 @@ class List:
                     else:
                         return
                 last_node = last_node.next
-        
-
-
-# find what are the elements with duplicates and then call 
 
 # if __name__ == '__main__':
 #     myLl = List()
@@ -169,8 +169,4 @@ class List:
 #     myLl.remove_duplicates()
 #     # myLl.reverse()
 
-
-    
 #     myLl.display()
-
-

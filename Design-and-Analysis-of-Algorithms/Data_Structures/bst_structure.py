@@ -1,90 +1,145 @@
 import random
 random.seed(42)
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.left = None
-        self.right = None
-        self.parent = None
+from queue_structure import Queue
+from ll_structure import *
 
-class Tree:
+class BST:
     def __init__(self):
         self.root = None
-        self.level = 0
-    
-    def insert(self, value):
-        new_node = Node(value)
+
+    def insert(self, data):
+        new_node = Node(data)
 
         if self.root is None:
-            self.root = new_node 
-        else:
-            self._insert(value, self.root)
+            self.root = new_node
+            return
+        
+        cur = self.root
+        while True:  
+            if data < cur.data:
+                if cur.left is None: 
+                    cur.left = new_node
+                    return
+                cur = cur.left
+            elif data > cur.data:
+                if cur.right is None:  
+                    cur.right = new_node
+                    return
+                cur = cur.right
+            else:
+                print("The element is already in the BST!")
+                return
 
-    def _insert(self, value, curr_node):
-        new_node = Node(value)
-        if value < curr_node.data:
-            if curr_node.left is None:
-                curr_node.left = new_node
-                curr_node.left.parent = curr_node 
-            else:
-                self._insert(value, curr_node.left)
-        elif value > curr_node.data:
-            if curr_node.right is None:
-                curr_node.right = new_node
-                curr_node.parent = curr_node
-            else:
-                self._insert(value, curr_node.right)
-    
+
     def search(self, value):
-        if self.root != None:
-            return self._search(value, self.root)
-        else:
-            return False
+        list = self.inorder()
+        return list.search(value)
         
-    def _search(self, value, cur_node):
-        if value == cur_node.data:
-            return True
-        elif value < cur_node.data and cur_node.left != None:
-            self._search(value, cur_node.left)
-        elif value > cur_node.data and cur_node.right != None:
-            self._search(value, cur_node.right)
-        return False
-    def delete(self):
-        pass
+    def delete(self, value):
+        if not self.search(value):
+            print("No such element exists!")
+            return
+        self.root = self._delete_recursive(self.root, value)
 
-    def print_tree_ind(self):
-        if self.root != None:
-            self._print_tree_ind(self.root)
+    def _delete_recursive(self, node, value):
+        if node is None:
+            return node
 
-    def _print_tree_ind(self, cur_node):
-        if cur_node != None:
-            self._print_tree_ind(cur_node.left)
-            print(cur_node.data)
-            self._print_tree_ind(cur_node.right)
+        # Locate the node to delete
+        if value < node.data:
+            node.left = self._delete_recursive(node.left, value)
+        elif value > node.data:
+            node.right = self._delete_recursive(node.right, value)
+        else:  
+            # CASE 1: No children (Leaf node)
+            if node.left is None and node.right is None:
+                return None
+            
+            # CASE 2: One child (Left or Right)
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+            
+            # CASE 3: Two children (Find inorder successor)
+            successor = self._min_value_node(node.right)
+            node.data = successor.data
+            node.right = self._delete_recursive(node.right, successor.data)
+        
+        return node
 
+    # Helper function to find the smallest value in a subtree
+    def _min_value_node(self, node):
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current
+
+    def inorder(self):
+        inorderList = List()
+        def _inorder(node):
+            if node is not None:
+                _inorder(node.left)
+                inorderList.insert(node.data)
+                _inorder(node.right)
+        _inorder(self.root)
+        inorderList.display()
+        return inorderList 
     
+    #  Create functions that call the display
 
-    def display_struct(self):
-        pass
-        
+    # Preorder Traversal (NLR: Node, Left, Right)
+    def preorder(self):
+        preorderList = List()
+        def _preorder(node):
+            if node is not None:
+                preorderList.insert(node.data)
+                _preorder(node.left)
+                _preorder(node.right)
+        _preorder(self.root)
+        preorderList.display()
+        return preorderList
+
+    # Postorder Traversal (LRN: Left, Right, Node)
+    def postorder(self):
+        postorderList = List()
+        def _postorder(node):
+            if node is not None:
+                _postorder(node.left)
+                _postorder(node.right)
+                postorderList.insert(node.data) # Visit root last
+        _postorder(self.root)
+        postorderList.display()
+        return postorderList
+    
+    def printTree(self, node=None, level=0):
+        if node is None:
+            if level == 0:  # Ensure we only assign self.root on the first call
+                node = self.root
+            else:
+                return  # Stop recursion if node is None
+
+        if node is not None:
+            self.printTree(node.right, level + 1)  # Print right subtree first
+            print(' ' * 4 * level + '-> ' + str(node.data))  # Print current node
+            self.printTree(node.left, level + 1)  # Print left subtree
+
+
+            
 
 if __name__ == '__main__':
-    myBst = Tree()
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
-    myBst.insert(random.randint(1, 20))
+    myBst = BST()
+    myBst.insert(50)
+    myBst.insert(30)
+    myBst.insert(70)
+    myBst.insert(20)
+    myBst.insert(40)
+    myBst.insert(60)
+    myBst.insert(80)
+    myBst.inorder()
+    myBst.printTree()
 
-    myBst.print_tree_ind()
-    print(myBst.search(0))
-    print(myBst.search(2))
-    print(myBst.search(9))
-    print(myBst.search(0))
+    myBst.delete(60)
+
+    myBst.inorder()
+    myBst.printTree()
