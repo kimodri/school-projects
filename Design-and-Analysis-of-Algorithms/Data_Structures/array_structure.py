@@ -1,11 +1,13 @@
 import array
+
+# Created my own class that will contain the different methods from the MP
 class Array:
-    def __init__(self, type = 'f'):
+    def __init__(self, type = 'i'):
         """
         Initializes an Array object.
         """
         self.type = type
-        self._array = array.array(self.type)
+        self._array = array.array(type)
         self.size = 0
         self.capacity = 4
 
@@ -14,7 +16,11 @@ class Array:
         Resizes the underlying array by doubling its capacity.
         """
         self.capacity *= 2
+        # if self.type == 'i' or self.type == 'f':
         new_array = array.array(self.type, [0] * self.capacity)
+        # else:
+        #     new_array = array.array(self.type, ['c'] * self.capacity)
+
         for i in range(self.size):
             new_array[i] = self._array[i]
         self._array = new_array
@@ -33,8 +39,11 @@ class Array:
         if self.size == self.capacity:
             self.resize()
 
-        new_array = array.array(self.type, [0] * self.capacity)
-
+        if self.type == 'i' or self.type == 'f':
+            new_array = array.array(self.type, [0] * self.capacity)
+        # else:
+        #     new_array = array.array(self.type, ['c'] * self.capacity)
+            
         for i in range(position):
             new_array[i] = self._array[i]
 
@@ -44,8 +53,11 @@ class Array:
             new_array[i + 1] = self._array[i]
 
         self.size += 1
-
-        perfect_array = array.array('i', [0] * self.size)
+        
+        if self.type == 'i' or self.type == 'f':
+            perfect_array = array.array(self.type, [0] * self.size)
+        # else:
+        #     perfect_array = array.array(self.type, ['c'] * self.capacity)
 
         for i in range(self.size):
             perfect_array[i] = new_array[i]
@@ -58,8 +70,9 @@ class Array:
         """
         Searches for an element in the array.
         """
-        if self._array is None:
+        if self._array == None:
             return None
+        
         else:
             for i in range(self.size):
                 if self._array[i] == element:
@@ -80,7 +93,10 @@ class Array:
             left = self._array[0:index]
             right = self._array[index + 1:]
             self.size -= 1
-            decreasedArr = array.array("i", [0] * self.size)
+            # if self.type == 'u':
+            #     decreasedArr = array.array(self.type, ['c'] * self.size)
+            # else:
+            decreasedArr = array.array(self.type, [0] * self.size)
 
             index = 0
             for el in left:
@@ -117,7 +133,9 @@ class Array:
                             swapped = True
                     if not swapped:
                         break
-                return sorted_array
+                # return sorted_array
+                for i in range (self.size):
+                    print(sorted_array[i], end = ' ', sep = ',')
             else:
                 for i in range(n):
                     swapped = False
@@ -127,10 +145,13 @@ class Array:
                             swapped = True
                     if not swapped:
                         break
-                return sorted_array
-
+                # return sorted_array
+                for i in range (self.size):
+                    print(sorted_array[i], end = ' ', sep = ',')
+                
     def display(self):
         """
         Displays the elements of the array.
         """
-        print([self._array[i] for i in range(self.size)])
+        for i in range(self.size):
+            print(self._array[i], end = ' ', sep = ',')
