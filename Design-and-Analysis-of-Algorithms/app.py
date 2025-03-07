@@ -64,16 +64,24 @@ def array_menu():
                 print("There is no existing array.")
                 continue
             else:
-                print("Inserting data: \n")
+                print("Inserting data... \n")
                 if global_data_type == 'i':
                     inp = int(input("insert: "))
-                    arr.insert(inp)
+                    position = input("position: ")
+                    if position == '':
+                        position = None
+                    else:
+                        position = int(position)
+                    arr.insert(inp, position)
                 elif global_data_type == 'f':
                     inp = float(input("insert: "))
-                    arr.insert(inp)
-                else:
-                    inp = input("insert: ")
-                    arr.insert(inp)
+                    position = int(input("position: "))
+                    if position == '':
+                        position = None
+                    arr.insert(inp, position)
+                # else:
+                #     inp = input("insert: ")
+                #     arr.insert(inp)
 
         elif inp == 3:
             if created == False:
@@ -136,7 +144,12 @@ def ll_menu():
            else:
                 print("Inserting data... \n")
                 inp = input("insert: ")
-                list.insert(inp)
+                position = input("position: ")
+                if position == '':
+                    position = None
+                else:
+                    position = int(position)
+                list.insert(inp, position)
 
         elif inp == 3:
             if created == False:
@@ -230,7 +243,11 @@ def stack_menu():
                 print("Modifying a data...\n")
                 if global_data_type == 'i':
                     element = int(input("Input element to subsitute: "))
-                    position = int(input("Input the position to substitute it to: "))
+                    position = input("Input the position to substitute it to: ")
+                    if position == '':
+                        position = None
+                    else:
+                        position = int(position)
                 stack.modify(element, position)
         
         elif inp == 5:
