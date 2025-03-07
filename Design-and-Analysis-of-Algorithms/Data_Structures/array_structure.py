@@ -135,7 +135,7 @@ class Array:
                         break
                 # return sorted_array
                 for i in range (self.size):
-                    print(sorted_array[i], end = ' ', sep = ',')
+                    print(sorted_array[i], sep = ',', end = ' ')
             else:
                 for i in range(n):
                     swapped = False
@@ -147,7 +147,7 @@ class Array:
                         break
                 # return sorted_array
                 for i in range (self.size):
-                    print(sorted_array[i], end = ' ', sep = ',')
+                    print(sorted_array[i], sep = ',', end = ' ')
                 
     def display(self):
         """
