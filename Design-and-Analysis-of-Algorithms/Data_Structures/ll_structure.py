@@ -1,5 +1,3 @@
-import array
-
 class Node:
     def __init__(self, data):
         """
@@ -17,21 +15,21 @@ class List:
         """
         self.head = None
         self.size = 0
-        print("List has been created.")
 
     def insert(self, element, position=None):
         """
         Inserts an element into the list at a specified position.
         """
         new_node = Node(element)
+
+        # Appending
         if position is None:
             position = self.size
 
             if self.head is None:
                 self.head = new_node
                 return None
-
-            # Appending
+            
             last_node = self.head
             while last_node.next is not None:
                 last_node = last_node.next
@@ -43,10 +41,13 @@ class List:
             print("invalid position!")
             return None
 
+        # Prepending
         elif position == 0:
             temp_node, self.head = self.head, new_node
             self.head.next = temp_node
             self.size += 1
+        
+        # Specified Position
         else:
             count = 0
             last_node = self.head
@@ -77,20 +78,43 @@ class List:
                 current_node = current_node.next
             print("None")
 
-    def reverse(self):
+    def copy_list(self):
         """
-        Reverses the list.
+        Creates and returns a copy of the list
         """
         if self.head is None:
-            print("No existing List")
             return None
-        else:
-            prev, curr = None, self.head
-            while curr is not None:
-                temp = curr.next
-                curr.next = prev
-                prev = curr
-                curr = temp
+
+        # Create the new head with the same data as the original head
+        new_head = Node(self.head.data)
+        new_current = new_head
+        current = self.head.next
+
+        # Copy each node
+        while current:
+            new_node = Node(current.data)
+            new_current.next = new_node
+            new_current = new_node
+            current = current.next
+
+        return new_head
+
+    def reverse_copy_and_display(self):
+        """
+        Reverses a copy of the list and displays it
+        """
+        copy_head = self.copy_list()
+        if copy_head is None:
+            print("Linked List is empty!")
+            return
+
+        prev, curr = None, copy_head
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+
         self.display(prev)
 
     def remove_duplicates(self):
@@ -122,7 +146,7 @@ class List:
             return True
         last_node = self.head
         while last_node:
-            if last_node.data is element:
+            if last_node.data == element:
                 return True
             last_node = last_node.next
         return False
@@ -154,19 +178,17 @@ class List:
 #     myLl = List()
 #     myLl.insert(1)
 #     myLl.insert(2)
-#     myLl.insert(2)
-#     myLl.insert(1)
 #     myLl.insert(3)
 #     myLl.insert(4)
-#     myLl.insert(1)
-#     myLl.insert(3)
-#     myLl.insert(3)
-#     myLl.insert(1)
-#     myLl.insert(1)
-#     myLl.insert(4)
+#     myLl.insert(5)
+#     myLl.insert(6)
+#     myLl.insert(7)
+#     myLl.insert(8)
+#     myLl.insert(9)
+#     myLl.insert(0)
 
 #     myLl.display()
-#     myLl.remove_duplicates()
-#     # myLl.reverse()
+#     myLl.reverse_copy_and_display()
 
 #     myLl.display()
+#     myLl.reverse_copy_and_display()
