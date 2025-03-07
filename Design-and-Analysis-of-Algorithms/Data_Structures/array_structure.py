@@ -1,11 +1,11 @@
 import array
 class Array:
-    def __init__(self, type):
+    def __init__(self, type = 'f'):
         """
         Initializes an Array object.
         """
         self.type = type
-        self._array = array.array(type)
+        self._array = array.array(self.type)
         self.size = 0
         self.capacity = 4
 

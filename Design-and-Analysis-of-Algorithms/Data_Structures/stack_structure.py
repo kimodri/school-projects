@@ -1,4 +1,4 @@
-from array_structure import Array # Assuming array_structure.py contains the Array class
+from Data_Structures.array_structure import Array  
 import array
 
 class Stack(Array):

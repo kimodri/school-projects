@@ -1,7 +1,6 @@
 import random
 random.seed(42)
-from queue_structure import Queue
-from ll_structure import *
+from Data_Structures.ll_structure import *
 
 class BST:
     def __init__(self):

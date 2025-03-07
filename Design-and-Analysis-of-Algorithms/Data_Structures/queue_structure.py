@@ -1,4 +1,4 @@
-from ll_structure import * # Assuming linked_list_structure.py contains the List class
+from Data_Structures.ll_structure import List
 
 class Queue(List):
     def __init__(self):
