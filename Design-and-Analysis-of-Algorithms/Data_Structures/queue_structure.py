@@ -31,7 +31,7 @@ class Queue(List):
         Prints the element at the front of the queue.
         """
         if self.head:
-            print(self.head.data, 0)
+            print(self.head.data)
         else:
             print("Queue is empty")
 
@@ -41,31 +41,51 @@ class Queue(List):
         """
         last_node = self.head
         if last_node is None:
-            print(None, self.size)
+            print("No existing queue.")
             return
 
         while last_node.next:
             last_node = last_node.next
-        print(last_node.data if last_node else None, self.size)
+        print(last_node.data)
+    
+    def display(self, head=None):
+        """
+        Displays the elements of the list.
+        """
+        if head is None:
+            head = self.head
 
-if __name__ == '__main__':
-    myQueue = Queue()
-    myQueue.enqueue(1)
-    myQueue.enqueue(2)
-    myQueue.enqueue(3)
-    myQueue.enqueue(4)
-    myQueue.enqueue(5)
-    myQueue.enqueue(4)
+        if head is None:
+            print("Linked List is empty!")
+            return None
 
-    myQueue.display()
+        else:
+            current_node = head
+            while current_node is not None:
+                print(current_node.data, end=" ")
+                current_node = current_node.next
+            print("\n")
+            
 
-    print(myQueue.dequeue())
-    myQueue.display()
-    myQueue.enqueue(69)
-    myQueue.display()
-    print(myQueue.dequeue())
-    myQueue.display()
-    print(myQueue.dequeue())
-    myQueue.display()
+
+# if __name__ == '__main__':
+#     myQueue = Queue()
+#     myQueue.enqueue(1)
+#     myQueue.enqueue(2)
+#     myQueue.enqueue(3)
+#     myQueue.enqueue(4)
+#     myQueue.enqueue(5)
+#     myQueue.enqueue(4)
+
+#     myQueue.display()
+
+#     print(myQueue.dequeue())
+#     myQueue.display()
+#     myQueue.enqueue(69)
+#     myQueue.display()
+#     print(myQueue.dequeue())
+#     myQueue.display()
+#     print(myQueue.dequeue())
+#     myQueue.display()
 
     
